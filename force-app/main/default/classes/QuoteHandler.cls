@@ -1,16 +1,16 @@
 /**
 * @author Luis Bento
-* @company Luis
-* @description Handler for Opportunity
+* @company Luis Bento
+* @description Handler for Quote
 */
-public with sharing class OpportunityHandler implements ITrigger {
-
- 	private final OpportunityHelper helper = new OpportunityHelper();
+public with sharing class QuoteHandler implements ITrigger {
+    
+    private final QuoteHelper helper = new QuoteHelper();
 
     public void beforeInsert() {}
 
     public void beforeUpdate() {
-        helper.beforeEvent((List<Opportunity>) Trigger.new, (Map<Id, Opportunity>) Trigger.oldmap);
+        //helper.beforeEvent((List<Opportunity>) Trigger.new, (Map<Id, Opportunity>) Trigger.oldmap);
     }
     
     public void beforeDelete() {}
@@ -22,4 +22,5 @@ public with sharing class OpportunityHandler implements ITrigger {
     public void bulkAfter() {}
     
     public void andFinally() {}
+
 }
