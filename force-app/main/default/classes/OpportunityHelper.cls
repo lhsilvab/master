@@ -1,13 +1,13 @@
 /**
 * @author Luis Bento
-* @company Everis do Brasil
+* @company Luis Bento
 * @description Opportunity Helper
 */
 public with sharing class OpportunityHelper {
     
     /**
     * @author Luis Bento 
-    * @description Define priority based on the score
+    * @description Undefined
     */
     public void beforeEvent(List<Opportunity> aLstOpportunityNew, Map<Id, Opportunity> aMapOpportunityOld) {
         if(aLstOpportunityNew == null || aLstOpportunityNew.isEmpty()) {

@@ -4,11 +4,11 @@
 public with sharing class TriggerFactory {
     
     /**
-* Creates and executes a trigger handler
-*
-* @param soType Object type to process (SObject.sObjectType)
-* @throws TriggerException if no handler has been coded.
-*/
+    * Creates and executes a trigger handler
+    *
+    * @param soType Object type to process (SObject.sObjectType)
+    * @throws TriggerException if no handler has been coded.
+    */
     public static void createHandler(Schema.sObjectType soType) {
         ITrigger handler = getHandler(soType);
         if (handler == null) {
@@ -43,6 +43,9 @@ public with sharing class TriggerFactory {
     private static ITrigger getHandler(Schema.sObjectType soType) {
         if (soType == Opportunity.sObjectType) {
             return new OpportunityHandler();
+        }
+        if (soType == Quote.sObjectType) {
+            return new QuoteHandler();
         }
         return null;
     }
