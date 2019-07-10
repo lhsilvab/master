@@ -5,12 +5,12 @@
 */
 public with sharing class QuoteHandler implements ITrigger {
     
-    private final QuoteHelper helper = new QuoteHelper();
+    private final QuoteHelper lHelper = new QuoteHelper();
 
     public void beforeInsert() {}
 
     public void beforeUpdate() {
-        //helper.beforeEvent((List<Opportunity>) Trigger.new, (Map<Id, Opportunity>) Trigger.oldmap);
+        lHelper.checkPermissionToUpdateExpirationDate((List<Quote>) Trigger.new, (Map<Id, Quote>) Trigger.oldmap);
     }
     
     public void beforeDelete() {}

@@ -5,12 +5,12 @@
 */
 public with sharing class OpportunityHandler implements ITrigger {
 
- 	private final OpportunityHelper helper = new OpportunityHelper();
+ 	private final OpportunityHelper lHelper = new OpportunityHelper();
 
     public void beforeInsert() {}
 
     public void beforeUpdate() {
-        helper.beforeEvent((List<Opportunity>) Trigger.new, (Map<Id, Opportunity>) Trigger.oldmap);
+        lHelper.beforeEvent((List<Opportunity>) Trigger.new, (Map<Id, Opportunity>) Trigger.oldmap);
     }
     
     public void beforeDelete() {}
