@@ -38,9 +38,16 @@
         <field>Contact.CPF__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contract.Opportunity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>Contact-Contact Layout</layout>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contract-Contract Layout</layout>
+    </layoutAssignments>
     <userLicense>Salesforce</userLicense>
-    
 </Profile>
