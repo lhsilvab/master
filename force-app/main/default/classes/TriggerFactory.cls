@@ -46,6 +46,9 @@ public with sharing class TriggerFactory {
         }
         if (soType == Quote.sObjectType) {
             return new QuoteHandler();
+        }        
+        if (soType == Contract.sObjectType) {
+            return new ContractHandler();
         }
         return null;
     }
