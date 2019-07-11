@@ -9,7 +9,23 @@ public with sharing class OpportunityHelper {
     * @author Luis Bento 
     * @description Undefined
     */
-    public void beforeEvent(List<Opportunity> aLstOpportunityNew, Map<Id, Opportunity> aMapOpportunityOld) {
+    public void beforeInsertEvent(List<Opportunity> aLstOpportunityNew) {
+        if(aLstOpportunityNew == null || aLstOpportunityNew.isEmpty()) {
+            return;
+        }
+        
+        for(Opportunity iOpportunity : aLstOpportunityNew) {
+            
+            system.debug('iOpportunity: ' + iOpportunity);
+            
+        }
+    }
+    
+    /**
+    * @author Luis Bento 
+    * @description Undefined
+    */
+    public void beforeUpdateEvent(List<Opportunity> aLstOpportunityNew, Map<Id, Opportunity> aMapOpportunityOld) {
         if(aLstOpportunityNew == null || aLstOpportunityNew.isEmpty()) {
             return;
         }
@@ -17,6 +33,8 @@ public with sharing class OpportunityHelper {
         Opportunity lOldOpportunity;
         
         for(Opportunity iOpportunity : aLstOpportunityNew) {
+            
+            system.debug('iOpportunity: ' + iOpportunity);
             
             lOldOpportunity = (Opportunity) aMapOpportunityOld.get(iOpportunity.Id);
             
