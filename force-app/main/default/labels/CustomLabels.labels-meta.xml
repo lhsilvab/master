@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>GroupExpirationDate</fullName>
+        <language>pt_BR</language>
+        <protected>true</protected>
+        <shortDescription>Grupo data de validade</shortDescription>
+        <value>00G2h000000PLtJEAW</value>
+    </labels>
+</CustomLabels>
