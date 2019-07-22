@@ -10,8 +10,7 @@ public with sharing class QuoteHandler implements ITrigger {
     public void beforeInsert() {}
 
     public void beforeUpdate() {
-        lHelper.checkProfilePermissionToUpdateExpirationDate((List<Quote>) Trigger.new, (Map<Id, Quote>) Trigger.oldmap);
-        lHelper.checkGroupPermissionToUpdateExpirationDate((List<Quote>) Trigger.new, (Map<Id, Quote>) Trigger.oldmap);
+        lHelper.checkPermissionToUpdateExpirationDate((List<Quote>) Trigger.new, (Map<Id, Quote>) Trigger.oldmap);
     }
     
     public void beforeDelete() {}

@@ -21,25 +21,41 @@ public class QuoteHelperTest {
         lQuote.Name = 'teste';
         lQuote.OpportunityId = [SELECT Id FROM Opportunity LIMIT 1].Id;
         
+        Profile lProfile = [SELECT Id from Profile WHERE Name = 'Precificação'];
+        
+        User lUser = new User(
+            Alias = 'tstprec',
+            Email='testeprecificacao@testorg.com',
+            EmailEncodingKey='UTF-8',
+            LastName='Testing',
+            LanguageLocaleKey='en_US', 
+            LocaleSidKey='en_US',
+            ProfileId = lProfile.Id, 
+            TimeZoneSidKey='America/Los_Angeles',
+            UserName='testeprecificacao@testorg.com'
+        );
+        
         Test.startTest();
         
         insert lQuote;
         
         lQuote.ExpirationDate = Date.newInstance(1960, 2, 17);
         
-        try {
-            update lQuote;
-        } catch(DMLException e) {
-            system.debug('check profile: ' + e.getMessage());
-            System.assert(e.getMessage().contains('Você não tem permissão para editar o campo Data de Validade'));
-            System.assertEquals('FIELD_CUSTOM_VALIDATION_EXCEPTION', e.getDmlStatusCode(0));
+        System.runAs(lUser) {
+            try {
+                update lQuote;
+            } catch(DMLException e) {
+                system.debug('check profile: ' + e.getMessage());
+                System.assert(e.getMessage().contains('Você não tem permissão para editar o campo Data de Validade'));
+                System.assertEquals('FIELD_CUSTOM_VALIDATION_EXCEPTION', e.getDmlStatusCode(0));
+            }
         }
 
         Test.stopTest();
     }
     
     @isTest
-    static void checkOneGroupPermissionForUpdateExpirationDate() {
+    static void checkWithOneGroupPermissionForUpdateExpirationDate() {
         
         Group lFirstGroup = new Group(
             Name = 'Comercial'
@@ -73,7 +89,7 @@ public class QuoteHelperTest {
     }
     
     @isTest
-    static void checkTwoGroupPermissionForUpdateExpirationDate() {
+    static void checkWithTwoGroupsPermissionForUpdateExpirationDate() {
         
         Group lFirstGroup = new Group(
             Name = 'First Comercial'
@@ -104,6 +120,29 @@ public class QuoteHelperTest {
             update lQuote;
         } catch(DMLException e) {
             system.debug('check two: ' + e.getMessage());
+            System.assert(e.getMessage().contains('Este campo não pode ser editado, faça a solicitação para Planejamento Comercial.'));
+            System.assertEquals('FIELD_CUSTOM_VALIDATION_EXCEPTION', e.getDmlStatusCode(0));
+        }
+
+        Test.stopTest();
+    }
+    
+    @isTest
+    static void checkWithCustomLabelPermissionForUpdateExpirationDate() {
+
+        Quote lQuote = new Quote();
+        lQuote.Name = 'teste';
+        lQuote.OpportunityId = [SELECT Id FROM Opportunity LIMIT 1].Id;
+        
+        Test.startTest();
+        
+        insert lQuote;
+        
+        lQuote.ExpirationDate = Date.newInstance(1960, 2, 17);
+        
+        try {
+            update lQuote;
+        } catch(DMLException e) {
             System.assert(e.getMessage().contains('Este campo não pode ser editado, faça a solicitação para Planejamento Comercial.'));
             System.assertEquals('FIELD_CUSTOM_VALIDATION_EXCEPTION', e.getDmlStatusCode(0));
         }
