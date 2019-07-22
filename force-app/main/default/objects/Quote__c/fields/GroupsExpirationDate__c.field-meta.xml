@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GroupsExpirationDate__c</fullName>
+    <description>Armazenar ids dos grupos que podem editar o campo data de validade do objeto Cotação</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Separe os ids por vírgula</inlineHelpText>
+    <label>Grupos data de validade</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
