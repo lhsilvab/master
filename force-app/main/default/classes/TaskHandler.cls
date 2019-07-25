@@ -14,10 +14,10 @@ public with sharing class TaskHandler implements ITrigger {
     
     public void afterInsert() {}    
     public void afterUpdate() {
-        lHelper.updateCasesWhenTasksAreDone((List<Task>) Trigger.new);
+        lHelper.updateCaseStatusWhenTasksAreDone((List<Task>) Trigger.new);
     }
     public void afterDelete() {
-        lHelper.updateCasesWhenTasksAreDone((List<Task>) Trigger.old);
+        lHelper.updateCaseStatusWhenTasksAreDone((List<Task>) Trigger.old);
     }
     public void bulkAfter() {}
     
