@@ -50,6 +50,9 @@ public with sharing class TriggerFactory {
         if (soType == Contract.sObjectType) {
             return new ContractHandler();
         }
+        if (soType == Task.sObjectType) {
+            return new TaskHandler();
+        }
         return null;
     }
     
