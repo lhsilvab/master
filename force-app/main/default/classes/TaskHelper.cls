@@ -28,9 +28,11 @@ public with sharing class TaskHelper {
         Integer lNumberOfTasksCompleted, lNumberOfTasksNotCompleted, lNumberOfTasks;
         
         for(Case iCase : lLstCases) {
+            
             lNumberOfTasksCompleted = 0;
             lNumberOfTasks = 0;
             lNumberOfTasksNotCompleted = 0;
+            
             for(Task iTask : lLstAllTasksFromCases) {
                 if(iCase.Id == iTask.WhatId) {
                     lNumberOfTasks++;
@@ -40,14 +42,15 @@ public with sharing class TaskHelper {
                         lNumberOfTasksNotCompleted++;
                     }
                 }
-            }         
-            if(lNumberOfTasksNotCompleted > 0) {
+            }       
+            
+            if(lNumberOfTasksNotCompleted > 0 || lNumberOfTasks == 0) {
                 iCase.Status = 'Working';
                 lLstCasesToUpdate.add(iCase);
-            } else if (lNumberOfTasksCompleted == lNumberOfTasks) {
+            } else if(lNumberOfTasksCompleted == lNumberOfTasks) {
                 iCase.Status = 'Closed';
                 lLstCasesToUpdate.add(iCase);
-            }  
+            }
         }
         
         if(!lLstCasesToUpdate.isEmpty()) {
