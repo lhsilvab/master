@@ -9,7 +9,7 @@ public with sharing class TaskHelper {
     * @author Luis Bento 
     * @description Update cases when tasks are done
     */
-    public void updateCasesWhenTaskAreDone(List<Task> aLstTaskNew) {
+    public void updateCasesWhenTasksAreDone(List<Task> aLstTaskNew) {
         if(aLstTaskNew == null || aLstTaskNew.isEmpty()) {
             return;
         }
