@@ -40,4 +40,28 @@ public with sharing class OpportunityHelper {
             
         }
     }
+    
+    public void checkIfHasAttachment(List<Opportunity> aLstOpportunityNew) {
+        if(aLstOpportunityNew == null || aLstOpportunityNew.isEmpty()) {
+            return;
+        }        
+        
+        Set<Id> lSetIdOpportunities = new Set<Id>();
+        List<Opportunity> lLstOpportunities = new List<Opportunity>();
+        
+        for(Opportunity iOpp : aLstOpportunityNew) {
+            lSetIdOpportunities.add(iOpp.Id);
+            lLstOpportunities.add(iOpp);
+        }
+        
+        Map<Id, ContentVersion> lMapAttachments = new Map<Id, ContentVersion>(
+            [SELECT FirstPublishLocationId FROM ContentVersion WHERE FirstPublishLocationId IN: lSetIdOpportunities]
+        );
+        
+        for(Opportunity iOpp : lLstOpportunities) {
+            if(!lMapAttachments.containsKey(iOpp.Id)) {
+                iOpp.addError('Essa oportunidade não possui anexo.');
+            }
+        }
+    }
 }

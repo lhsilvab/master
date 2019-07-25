@@ -13,6 +13,7 @@ public with sharing class OpportunityHandler implements ITrigger {
 
     public void beforeUpdate() {
         lHelper.beforeUpdateEvent((List<Opportunity>) Trigger.new, (Map<Id, Opportunity>) Trigger.oldmap);
+        lHelper.checkIfHasAttachment((List<Opportunity>) Trigger.new);
     }
     
     public void beforeDelete() {}
