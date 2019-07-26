@@ -14,7 +14,7 @@ public with sharing class TaskHelper {
             return;
         }
         
-        Set<Id> lSetCaseId = new Set<Id>();        
+        Set<Id> lSetCaseId = new Set<Id>();
         
         for(Task iTask : aLstTaskNew) {
             if('500'.equals(String.valueOf(iTask.WhatId).substring(0,3))) {                
@@ -55,6 +55,37 @@ public with sharing class TaskHelper {
         
         if(!lLstCasesToUpdate.isEmpty()) {
             update lLstCasesToUpdate;
+        }
+    }
+    
+    /**
+    * @author Luis Bento 
+    * @description Update cases when tasks are done
+    */
+    public void fillOpportunityNameField(List<Task> aLstTaskNew) {
+        if(aLstTaskNew == null || aLstTaskNew.isEmpty()) {
+            return;
+        }
+        
+        Set<Id> lSetCaseId = new Set<Id>();
+        List<Task> lLstTaskWithCases = new List<Task>();
+        Map<Id, List<Task>> lMapCaseWithTasks = new Map<Id, List<Task>>();
+        
+        for(Task iTask : aLstTaskNew) {
+            if('500'.equals(String.valueOf(iTask.WhatId).substring(0,3))) {                
+                lSetCaseId.add(iTask.WhatId);
+                lLstTaskWithCases.add(iTask);
+            }           
+        }
+        
+        List<Case> lLstCases = [SELECT Id, Status, OpportunityName__c FROM Case WHERE Id in: lSetCaseId];
+        
+        for(Case iCase : lLstCases) {
+            for(Task iTask : lLstTaskWithCases) {
+                if(iCase.Id == iTask.WhatId) {
+                    iTask.OpportunityName__c = iCase.OpportunityName__c;
+                }
+            }
         }
     }
 }

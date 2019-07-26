@@ -7,7 +7,9 @@ public with sharing class TaskHandler implements ITrigger {
     
     private final TaskHelper lHelper = new TaskHelper();
 
-    public void beforeInsert() {}
+    public void beforeInsert() {
+        lHelper.fillOpportunityNameField((List<Task>) Trigger.new);
+    }
     public void beforeUpdate() {}    
     public void beforeDelete() {}
     public void bulkBefore() {}
