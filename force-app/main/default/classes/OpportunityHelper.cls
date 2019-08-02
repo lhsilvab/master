@@ -78,4 +78,49 @@ public with sharing class OpportunityHelper {
             }            
         }        
     }
+    
+    /**
+    * @author Luis Bento 
+    * @description Undefined
+    */
+    public void updateOpportunityName(List<Opportunity> aLstOpportunityNew) {
+        if(aLstOpportunityNew == null || aLstOpportunityNew.isEmpty()) {
+            return;
+        }
+        
+        Set<Id> lSetIdAccounts = new Set<Id>();
+        
+        for(Opportunity iOpportunity : aLstOpportunityNew) {
+            
+            if(String.isNotBlank(iOpportunity.AccountId)) {
+                lSetIdAccounts.add(iOpportunity.AccountId);
+            }
+        }
+        
+        Map<Id, Account> lMapAccountsFromOpportunities = new Map<Id, Account>([SELECT Id, Name FROM Account WHERE Id in :lSetIdAccounts]);
+        
+        String lAccountName, lProduct, lCampaign;
+        Account lAccountFromOpportunity;
+        
+        for(Opportunity iOpportunity : aLstOpportunityNew) {
+            
+            lAccountFromOpportunity = lMapAccountsFromOpportunities.get(iOpportunity.AccountId);
+            
+            if(lAccountFromOpportunity != null) {
+                lAccountName = lAccountFromOpportunity.Name;
+            }
+            
+            if(String.isNotBlank(iOpportunity.Product__c)) {
+                lProduct = iOpportunity.Product__c;
+            }
+            
+            if(String.isNotBlank(iOpportunity.Campaign__c)) {
+                lCampaign = iOpportunity.Campaign__c;
+            }
+            
+            iOpportunity.Name = String.isNotBlank(lAccountName) ? lAccountName : '';
+            iOpportunity.Name += String.isNotBlank(lAccountName) ? ' - ' + lProduct : lProduct;
+            iOpportunity.Name += String.isNotBlank(lProduct) || String.isNotBlank(lAccountName) ? ' - ' + lCampaign : lCampaign;
+        }
+    }
 }
