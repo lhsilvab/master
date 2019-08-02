@@ -111,6 +111,9 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Expense__c.Reimbursed__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.Campaign__c</field>
         <readable>true</readable>
     </fieldPermissions>
