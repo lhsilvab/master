@@ -41,7 +41,11 @@ public with sharing class OpportunityHelper {
         }
     }
     
-    public void checkIfHasAttachment(List<Opportunity> aLstOpportunityNew) {
+    /**
+    * @author Luis Bento 
+    * @description check if Opportunity has at least one attachment
+    */
+    public void checkIfHasAttachment(List<Opportunity> aLstOpportunityNew, Map<Id, Opportunity> aMapOpportunityOld) {
         if(aLstOpportunityNew == null || aLstOpportunityNew.isEmpty()) {
             return;
         }        
@@ -49,19 +53,29 @@ public with sharing class OpportunityHelper {
         Set<Id> lSetIdOpportunities = new Set<Id>();
         List<Opportunity> lLstOpportunities = new List<Opportunity>();
         
+        Opportunity lOppOld;
+        
         for(Opportunity iOpp : aLstOpportunityNew) {
-            lSetIdOpportunities.add(iOpp.Id);
-            lLstOpportunities.add(iOpp);
-        }
-        
-        Map<Id, ContentVersion> lMapAttachments = new Map<Id, ContentVersion>(
-            [SELECT FirstPublishLocationId FROM ContentVersion WHERE FirstPublishLocationId IN: lSetIdOpportunities]
-        );
-        
-        for(Opportunity iOpp : lLstOpportunities) {
-            if(!lMapAttachments.containsKey(iOpp.Id)) {
-                iOpp.addError('Essa oportunidade não possui anexo.');
+            lOppOld = aMapOpportunityOld.get(iOpp.Id);
+            if('Negociação'.equals(lOppOld.StageName) && 
+                ('Contrato'.equals(iOpp.StageName) || 'Desenvolvimento'.equals(iOpp.StageName) || 'Ativo'.equals(iOpp.StageName) || 'Cliente perdido'.equals(iOpp.StageName))) {
+                lSetIdOpportunities.add(iOpp.Id);
+                lLstOpportunities.add(iOpp);
             }
         }
+        
+        Set<Id> lLstLinkedEntityId = new Set<Id>();
+        
+        if(!lSetIdOpportunities.isEmpty()) {
+            for(ContentDocumentLink iContentDocumentLink : [SELECT Id, LinkedEntityId FROM ContentDocumentLink WHERE LinkedEntityId IN: lSetIdOpportunities]) {
+                lLstLinkedEntityId.add(iContentDocumentLink.LinkedEntityId);
+            }            
+            
+            for(Opportunity iOpp : lLstOpportunities) {
+                if(!lLstLinkedEntityId.contains(iOpp.Id)) {
+                    iOpp.addError('Necessário anexar a documentação técnica do Cliente para concluir a fase de Negociação da Oportunidade.');
+                }
+            }            
+        }        
     }
 }
