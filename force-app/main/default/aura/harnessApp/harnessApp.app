@@ -1,7 +1,9 @@
 <aura:application >
     
+    <c:helloMessageInteractive/>
+    
     <c:helloWorld/>
     
-    <c:helloPlayground />
+    <c:helloPlayground/>
     
 </aura:application>
