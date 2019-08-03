@@ -2,10 +2,10 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:attribute name="formatdate" type="Date"/>
     <aura:attribute name="expense" type="Expense__c"/>
+    <aura:registerEvent name="updateExpense" type="c:expensesItemUpdate"/>
 
     <lightning:card title="{!v.expense.Name}" iconName="standard:scan_card"
-                    class="{!v.expense.Reimbursed__c ?
-                           'slds-theme--success' : ''}">
+                    class="{!v.expense.Reimbursed__c ? 'slds-theme--success' : ''}">
         <aura:set attribute="footer">
             <p>Date: <lightning:formattedDateTime value="{!v.formatdate}"/></p>
             <p class="slds-text-title"><lightning:relativeDateTime value="{!v.formatdate}"/></p>
