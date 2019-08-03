@@ -1,0 +1,87 @@
+<aura:component>
+ 
+    <aura:attribute name="message" type="String"/>
+ 
+    <p>Message of the day: {!v.message}</p>
+ 
+    <div>
+        <lightning:button label="You look nice today."
+            onclick="{!c.handleClick2}"/>
+ 
+        <lightning:button label="Today is going to be a great day!"
+            onclick="{!c.handleClick2}"/>
+    </div>
+    
+    <p>
+        A controller is basically a collection of code that defines your app’s 
+        behavior when “things happen,” whereby “things” we mean user input, timer 
+        and other events, data updates, and so on. If you look up “Model-View-Controller” 
+        on any number of developer sites, you’ll get various definitions. For our purposes, 
+        for Lightning Components, a controller is a resource in a component bundle that holds 
+        the action handlers for that component. And action handlers are just JavaScript functions 
+        with a particular function signature.    
+    </p>
+    
+    <br/>
+        
+    <p>
+        The action handler name, followed by an anonymous function declaration. 
+        The important thing here is the function signature. While it’s not 
+        technically required, you should always declare your controller functions
+        to take these three parameters. We’ll talk more about them as we go, but 
+        for now, these parameters represent:
+    </p>
+    
+    <br/>
+    
+    <p>
+        <ul>
+            <li>component — the component. In this case, it’s helloMessageInteractive.</li>
+            <li>event — the event that caused the action handler to be called.</li>
+            <li>helper — the component’s helper, another JavaScript resource of reusable functions.</li>
+        </ul>
+    </p>
+    
+    <br/>
+    
+    <p>
+        Remember that handleClick is connected to our lightning:button
+        tag and its onclick attribute. The event, then, is someone clicking the button. 
+        Inside that event it has the notion of a source, the thing that generated the
+        event, which is the button itself. So, calling event.getSource() gets us a 
+        reference to the specific lightning:button that was clicked.
+    </p>
+    
+    <br/>
+    
+    <p>
+        What do we do now that we have a reference to the button? 
+        We look inside it and get its label, which is set on the lightning:button 
+        in the component markup. For example, lightning:button label="You look nice today." ... .
+    	<br/>
+        Let’s think about that a bit more. We don’t have the definition of lightning:button
+        in front of us, but label is just another attribute, much like the message 
+        attribute we added to helloMessageInteractive. You can call get() on any 
+        component and provide the name of the attribute you want to retrieve, in 
+        the format v.attributeName. The result is the attribute value.
+    	<br/>
+        Note that, as in component markup, v represents the view, the component itself—but 
+        in this case, it’s the lightning:button child component, not helloMessageInteractive! 
+        Think of it this way. btnClicked.get("v.label") taps on the shoulder of 
+        whatever component btnClicked is and says “Hey, give me v.label”. That 
+        component thinks “v is me,” looks inside itself, and returns the value of its 
+        label attribute.
+    	<br/>
+        So now that we have a text string retrieved from the button, we just have one 
+        step left: to change our message attribute to the new message text. 
+        Unsurprisingly, just as get() reads a value from a component, set() 
+        writes a value.
+        <br/>
+        However, let’s notice one important difference. We called get() on btnClicked, 
+        the lightning:button that’s inside helloMessageInteractive. We’re calling set() 
+        on component—the helloMessageInteractive component itself. This is a pattern 
+        you’ll repeat in virtually every component you create: get values from child 
+        components, maybe do some processing, and set values in the component itself.
+    </p>
+ 
+</aura:component>

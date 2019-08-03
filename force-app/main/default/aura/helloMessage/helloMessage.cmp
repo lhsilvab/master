@@ -1,0 +1,73 @@
+<aura:component>
+    
+    <aura:attribute name="message" type="String"/>
+    
+    <p>Hello! {!v.message}</p>
+    <p>{!'Hello! ' + v.message}</p>
+    <!-- {!$Label.c.Greeting + v.message} -->
+    
+    <!--<p>
+        Attributes on components are like instance variables in objects. 
+        They’re a way to save values that change, and a way to name those 
+        value placeholders.
+    </p>
+    
+    <p>
+        You can set a component’s attributes when you create it, as we did in the 
+        preceding example. You can also change them over the course of your component’s 
+        lifecycle, in response to actions the user takes, or events that happen elsewhere, 
+        and so on. And you can of course read and use attribute values in a number of 
+        different ways. We’ll look at those when we get to expressions.
+    </p>
+    
+    <p>
+        For the moment, let’s look at how you define attributes for a component. 
+        An attribute is defined using an aura:attribute tag, which requires values 
+        for the name and type attributes, and accepts these optional attributes: default, 
+        description, required.
+    </p>
+        
+    <p>
+        An expression is basically a formula, or a calculation, which you place 
+        within expression delimiters ({! and }).
+    </p>
+    
+    <p>
+		The formal definition of an expression is a bit intimidating, but let’s 
+        look at and then unpack it: An expression is any set of literal values, 
+        variables, sub-expressions, or operators that can be resolved to a single value.
+	</p>
+    
+    <p>
+        <h1>Value provider</h1>
+    </p>
+    
+    <p>
+        v is something called a value provider. 
+        Value providers are a way to group, encapsulate, and access related data. 
+        Value providers are a complicated topic, so for now, think of v as an automatic 
+        variable that’s made available for you to use. In our component, v is a value 
+        provider for the view, which is the helloMessage component itself.
+    </p>
+    
+    <p>
+        v gives you a “hook” to access the component’s message attribute, 
+        and it’s how you access all of a component’s attributes.
+    </p>
+    
+    <p>
+        Values in a value provider are accessed as named properties. 
+        To use a value, separate the value provider and the property 
+        name with a dot (period). For example, v.message, as we’ve seen.
+    </p>
+    
+    <p>
+        When an attribute of a component is an object or other 
+        structured data (that is, not a primitive value), access 
+        the values on that attribute using the same dot notation. 
+        For example, {!v.account.Id} accesses the Id field of an account record. 
+        For deeply nested objects and attributes, continue adding dots to traverse 
+        the structure and access the nested values.
+    </p>-->
+    
+</aura:component>

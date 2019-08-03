@@ -1,0 +1,56 @@
+<aura:component >
+    
+    <c:helloHeading/>
+    
+    <p>Hello Lightning!</p>
+    
+    <br/>
+    
+    <p>
+        A component is a bundle that includes a definition resource, 
+        written in markup, and may include additional, optional resources 
+        like a controller, stylesheet, and so on. A resource is sort of like 
+        a file, but stored in Salesforce rather than on a file system.
+    </p>
+    
+    <br/>
+    
+    <p>
+        A bundle is sort of like a folder. 
+        It groups the related resources for a single component. 
+        Resources in a bundle are auto-wired together via a naming 
+        scheme for each resource type. Auto-wiring just means that 
+        a component definition can reference its controller, helper, etc., 
+        and those resources can reference the component definition. 
+        They are hooked up to each other (mostly) automatically.
+    </p>
+    
+    <ul>
+        <li>helloWorld — the component bundle</li>
+        <li>helloWorld.cmp — the component’s definition</li>
+        <li>helloWorldController.js — the component’s controller, or main JavaScript file</li>
+        <li>helloWorldHelper.js — the component’s helper, or secondary JavaScript file</li>
+        <li>helloWorld.css — the component’s styles</li>
+    </ul>
+    
+    <br/>
+    
+    <h1>What Is an App?</h1>
+    
+    <br/>
+    
+    <p>
+		Now that we know what a component is, 
+        it’s actually easy to explain what an app is—an app is just a special kind of component! 
+        For the purposes of this module, you can think of an app as being different 
+        from a component in only two meaningful ways:
+    </p>
+	
+    <ul>
+        <li>An app uses aura:application tags instead of aura:component tags.</li>
+        <li>Only an app has a Preview button in the Developer Console.</li>
+    </ul>
+    
+    <p>That’s it!</p>
+	
+</aura:component>
