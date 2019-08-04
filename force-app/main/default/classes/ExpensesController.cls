@@ -6,7 +6,7 @@ public with sharing class ExpensesController {
         // Check to make sure all fields are accessible to this user
         String[] fieldsToCheck = new String[] {
             'Id', 'Name', 'Amount__c', 'Client__c', 'Date__c', 
-            'Reimbursed__c', 'CreatedDate'
+            'Reimbursed__c', 'Email__c', 'CreatedDate'
         };
         
         Map<String,Schema.SObjectField> fieldDescribeTokens = 
@@ -18,10 +18,18 @@ public with sharing class ExpensesController {
             }
         }
         
+        List<Expense__c> lLstExpenses = [SELECT Id, Name, Amount__c, Client__c, Date__c, 
+                                         Reimbursed__c, Email__c, CreatedDate 
+                                         FROM Expense__c];
+        
+        for(Expense__c iExpense : lLstExpenses) {
+            if(String.isNotBlank(iExpense.Email__c)) {
+                iExpense.Email__c = iExpense.Email__c.replaceAll('(^[^@]{3}|(?!^)\\G)[^@]', '$1*');                
+            }
+        }
+        
         // OK, they're cool, let 'em through
-        return [SELECT Id, Name, Amount__c, Client__c, Date__c, 
-                       Reimbursed__c, CreatedDate 
-                FROM Expense__c];
+        return lLstExpenses;
     }
     
     @AuraEnabled

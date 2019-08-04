@@ -16,6 +16,9 @@
         <p class="slds-p-horizontal--small">
             Client: {!v.expense.Client__c}
         </p>
+        <p class="slds-p-horizontal--small">
+            E-mail: {!v.expense.Email__c}
+        </p>
         <p>
             <lightning:input type="toggle" 
                              label="Reimbursed?"
